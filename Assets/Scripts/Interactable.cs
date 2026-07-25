@@ -59,6 +59,10 @@ public class Interactable : MonoBehaviour
                     playerController.Dig();
                     Dig();
                 }
+                else
+                {
+                    return;
+                }
 
             }
 

@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     public AudioSource audioSource;
 
     [SerializeField]
+    private GameObject dustParticle;
+
+    [SerializeField]
     private GameObject shovel;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,6 +46,11 @@ public class PlayerController : MonoBehaviour
         {
             Quaternion rotation = Quaternion.LookRotation(move);
             player.transform.rotation = rotation;
+            dustParticle.SetActive(true);
+        }
+        else
+        {
+            dustParticle.SetActive(false);
         }
 
         playerAnimator.SetFloat("Speed", currentSpeed);
