@@ -4,14 +4,12 @@ using System.Collections;
 
 public class PlayerMeter : MonoBehaviour
 {
-
     private float maxHealth = 100;
     private float currentHealth;
     private bool isPaused = true;
-
     private Slider meterSlider;
-
     private float meterMultiplier = 2f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -49,7 +47,6 @@ public class PlayerMeter : MonoBehaviour
         else
         {
             currentHealth -= Time.deltaTime * meterMultiplier;
-            Debug.Log(currentHealth);
             if (currentHealth < 0)
             {
                 currentHealth = 0;
