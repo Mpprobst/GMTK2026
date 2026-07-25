@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-
+using DG.Tweening;
 public class PlayerMeter : MonoBehaviour
 {
     private float maxHealth = 100;
     private float currentHealth;
+    private float previewHealth;
     private bool isPaused = true;
     private Slider meterSlider;
     private float meterMultiplier = 2f;
@@ -14,7 +15,7 @@ public class PlayerMeter : MonoBehaviour
     void Start()
     {
         meterSlider = GetComponent<Slider>();
-        currentHealth = maxHealth;
+        previewHealth = maxHealth;
         meterSlider.value = currentHealth;
     }
 
@@ -30,11 +31,12 @@ public class PlayerMeter : MonoBehaviour
 
     public void AddToMeter(float amount)
     {
-        currentHealth += amount;
-        if (currentHealth > maxHealth)
+        float adjustedHealth = previewHealth + amount;
+        if (adjustedHealth > maxHealth)
         {
-            currentHealth = maxHealth;
+            adjustedHealth = maxHealth;
         }
+        meterSlider.DOValue(adjustedHealth, 1f).SetEase(Ease.InOutBack);
     }
 
     // Update is called once per frame
@@ -46,12 +48,21 @@ public class PlayerMeter : MonoBehaviour
         }
         else
         {
-            currentHealth -= Time.deltaTime * meterMultiplier;
-            if (currentHealth < 0)
+            previewHealth -= Time.deltaTime * meterMultiplier;
+            if (previewHealth < 0)
             {
-                currentHealth = 0;
+                previewHealth = 0;
             }
-            meterSlider.value = currentHealth;
+            meterSlider.value = previewHealth;
         }
     }
+
+    public void ShowAdjustedHealth()
+    {
+
+    }
+
+    // previewHealth is the half-opaque health that is trickling down.
+    // currentHealth is the full-opaque health that is currently displayed, and turns into previewHealth when the meter is paused.
+    // TODO: control showing the previewHealth and currentHealth on the same slider
 }

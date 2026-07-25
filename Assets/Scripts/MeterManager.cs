@@ -33,4 +33,16 @@ public class MeterManager : MonoBehaviour
             }
         }
     }
+
+    public void AddToMeter(PlayerController playerController, float amount)
+    {
+        if (playerController != null)
+        {
+            playerMeter.AddToMeter(amount);
+        }
+        else
+        {
+            enemyMeter.AddToMeter(amount);
+        }
+    }
 }
