@@ -4,12 +4,15 @@ public class PlayerController : MonoBehaviour
 {
     private GameObject player;
     private Rigidbody playerRigidbody;
+    private Animator playerAnimator;
     public float speed = 2f;
+    public float moveThreshold = 0.01f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = gameObject;
         playerRigidbody = player.GetComponent<Rigidbody>();
+        playerAnimator = player.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -17,11 +20,18 @@ public class PlayerController : MonoBehaviour
     {
         float moveX = Input.GetAxis("Horizontal"); // A/D or Left/Right
         float moveZ = Input.GetAxis("Vertical");   // W/S or Up/Down
-        Debug.Log("Move: " + moveX + ", " + moveZ);
 
         playerRigidbody.linearVelocity = new Vector3(moveX, 0, moveZ) * speed;
         Vector3 move = new Vector3(moveX, 0f, moveZ).normalized;
-        Quaternion rotation = Quaternion.LookRotation(move);
-        player.transform.rotation = rotation;
+        float currentSpeed = move.magnitude;
+        Debug.Log(currentSpeed);
+
+        if (currentSpeed >= moveThreshold)
+        {
+            Quaternion rotation = Quaternion.LookRotation(move);
+            player.transform.rotation = rotation;
+        }
+
+        playerAnimator.SetFloat("Speed", currentSpeed);
     }
 }
