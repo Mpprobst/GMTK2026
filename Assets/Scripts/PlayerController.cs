@@ -21,8 +21,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float moveX = Input.GetAxis("Horizontal"); // A/D or Left/Right
-        float moveZ = Input.GetAxis("Vertical");   // W/S or Up/Down
+        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        // float moveX = Input.GetAxis("Horizontal"); // A/D or Left/Right
+        // float moveZ = Input.GetAxis("Vertical");   // W/S or Up/Down
+
+        var matrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
+        var skewedInput = matrix.MultiplyPoint3x4(input);
+        float moveX = skewedInput.x;
+        float moveZ = skewedInput.z;
 
         playerRigidbody.linearVelocity = new Vector3(moveX, 0, moveZ) * speed;
         Vector3 move = new Vector3(moveX, 0f, moveZ).normalized;
@@ -35,6 +41,7 @@ public class PlayerController : MonoBehaviour
         }
 
         playerAnimator.SetFloat("Speed", currentSpeed);
+
     }
 
     public void PickUpShovel()
