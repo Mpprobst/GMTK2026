@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public float moveThreshold = 0.01f;
 
     public bool hasShovel = false;
+    public AudioClip digSound;
+    public AudioSource audioSource;
 
     [SerializeField]
     private GameObject shovel;
@@ -18,6 +20,7 @@ public class PlayerController : MonoBehaviour
         player = gameObject;
         playerRigidbody = player.GetComponent<Rigidbody>();
         playerAnimator = player.GetComponent<Animator>();
+        // audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -58,12 +61,13 @@ public class PlayerController : MonoBehaviour
 
     public void Dig()
     {
-        if(!hasShovel)
+        if (!hasShovel)
         {
             return;
         }
 
         Debug.Log("Digging");
         playerAnimator.SetTrigger("Dig");
+        audioSource.PlayOneShot(digSound);
     }
 }

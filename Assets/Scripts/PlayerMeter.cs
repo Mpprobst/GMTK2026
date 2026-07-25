@@ -9,7 +9,7 @@ public class PlayerMeter : MonoBehaviour
     private float previewHealth;
     private bool isPaused = true;
     private Slider meterSlider;
-    private float meterMultiplier = 2f;
+    private float meterMultiplier = 6f;
     public bool isPlayer = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
