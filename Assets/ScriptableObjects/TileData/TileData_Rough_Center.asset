@@ -30,3 +30,4 @@ MonoBehaviour:
     allowedTypes: 09000000
   - direction: 7
     allowedTypes: 09000000
+  prefab: {fileID: 8968937275381615787, guid: c749fd5ab3c17484db486025f7f2bb67, type: 3}

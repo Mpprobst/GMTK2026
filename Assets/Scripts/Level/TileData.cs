@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public enum TILE_TYPE { 
@@ -22,16 +23,16 @@ public enum DIRECTIONS
 [CreateAssetMenu(fileName = "TileData", menuName = "ScriptableObjects/TileData", order = 1)]
 public class TileData : ScriptableObject
 {
-    public static Dictionary<DIRECTIONS, Vector3> DirectionVectors = new Dictionary<DIRECTIONS, Vector3>()
+    public static Dictionary<DIRECTIONS, int2> DirectionVectors = new Dictionary<DIRECTIONS, int2>()
     {
-        { DIRECTIONS.NORTH, Vector3.forward },
-        { DIRECTIONS.SOUTH, Vector3.back },
-        { DIRECTIONS.EAST, Vector3.right },
-        { DIRECTIONS.WEST, Vector3.left },
-        { DIRECTIONS.NORTH_EAST, new Vector3(1, 0, 1) },
-        { DIRECTIONS.SOUTH_EAST, new Vector3(1, 0, -1) },
-        { DIRECTIONS.SOUTH_WEST, new Vector3(-1, 0, -1) },
-        { DIRECTIONS.NORTH_WEST, new Vector3(-1, 0, 1) },
+        { DIRECTIONS.NORTH,      new int2( 0,  1) },
+        { DIRECTIONS.SOUTH,      new int2( 0, -1) },
+        { DIRECTIONS.EAST,       new int2( 1,  0) },
+        { DIRECTIONS.WEST,       new int2(-1,  0) },
+        { DIRECTIONS.NORTH_EAST, new int2( 1,  1) },
+        { DIRECTIONS.SOUTH_EAST, new int2( 1, -1) },
+        { DIRECTIONS.SOUTH_WEST, new int2(-1, -1) },
+        { DIRECTIONS.NORTH_WEST, new int2(-1,  1) },
     };
     
     [System.Serializable]
@@ -44,6 +45,5 @@ public class TileData : ScriptableObject
 
     public TILE_TYPE tileType;  // determines prefab and rules 
     public TileConstraint[] constraints;
-
-
+    public GameObject prefab;
 }
