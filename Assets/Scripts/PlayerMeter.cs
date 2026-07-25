@@ -10,6 +10,7 @@ public class PlayerMeter : MonoBehaviour
     private bool isPaused = true;
     private Slider meterSlider;
     private float meterMultiplier = 2f;
+    public bool isPlayer = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -49,9 +50,14 @@ public class PlayerMeter : MonoBehaviour
         else
         {
             previewHealth -= Time.deltaTime * meterMultiplier;
-            if (previewHealth < 0)
+            if (previewHealth <= 0)
             {
                 previewHealth = 0;
+                //player die
+                if (isPlayer)
+                {
+                    FindFirstObjectByType<PlayerController>().Die();
+                }
             }
             meterSlider.value = previewHealth;
         }

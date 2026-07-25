@@ -11,6 +11,7 @@ public class MeterManager : MonoBehaviour
     {
         isPlayersTurn = true;
         playerMeter.ResumeMeter();
+        playerMeter.isPlayer = true;
     }
 
     // Update is called once per frame

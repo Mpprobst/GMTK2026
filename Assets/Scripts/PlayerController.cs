@@ -43,7 +43,11 @@ public class PlayerController : MonoBehaviour
         }
 
         playerAnimator.SetFloat("Speed", currentSpeed);
+    }
 
+    public void Die()
+    {
+        playerAnimator.SetTrigger("Die");
     }
 
     public void PickUpShovel()
@@ -58,7 +62,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        
+
         Debug.Log("Digging");
         playerAnimator.SetTrigger("Dig");
     }
