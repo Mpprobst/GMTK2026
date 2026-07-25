@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 082e52e537bb107468129afb3b9071f3, type: 3}
+  m_Name: TileData_Rough_W
+  m_EditorClassIdentifier: 
+  tileType: 5
+  constraints:
+  - direction: 0
+    allowedTypes: 09000000
+  - direction: 1
+    allowedTypes: 08000000
+  - direction: 2
+    allowedTypes: 0100000004000000
+  - direction: 3
+    allowedTypes: 00000000070000000400000006000000
+  - direction: 4
+    allowedTypes: 0200000006000000
+  - direction: 5
+    allowedTypes: 0300000007000000
+  - direction: 6
+    allowedTypes: 00000000070000000400000006000000
+  - direction: 7
+    allowedTypes: 00000000070000000400000006000000
