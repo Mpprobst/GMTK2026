@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class Interactable : MonoBehaviour
@@ -6,11 +7,15 @@ public class Interactable : MonoBehaviour
     {
         None,
         Shovel,
-        Water
+        Water,
+        DigSite
     }
 
     [SerializeField]
     private InteractionType interactionType = InteractionType.None;
+    [SerializeField]
+    private GameObject holePrefab;
+
     private Collider collider;
     private MeterManager meterManager;
     private float waterAmount = 20f;
@@ -46,8 +51,32 @@ public class Interactable : MonoBehaviour
                 Debug.Log("Water");
                 meterManager.AddToMeter(playerController, waterAmount);
             }
+            else if (interactionType == InteractionType.DigSite)
+            {
+                Debug.Log("Dig Site");
+                if (playerController.hasShovel)
+                {
+                    playerController.Dig();
+                    Dig();
+                }
+
+            }
 
         }
         gameObject.SetActive(false);
+    }
+
+    private void Dig()
+    {
+        if (interactionType == InteractionType.DigSite)
+        {
+            if (holePrefab != null)
+            {
+                GameObject hole = Instantiate(holePrefab, transform.position, transform.rotation);
+                hole.transform.localScale = Vector3.zero;
+                hole.transform.DOScale(1f, .5f).SetEase(Ease.Linear);
+            }
+            gameObject.SetActive(false);
+        }
     }
 }

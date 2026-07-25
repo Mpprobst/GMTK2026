@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public float speed = 2f;
     public float moveThreshold = 0.01f;
 
+    public bool hasShovel = false;
+
     [SerializeField]
     private GameObject shovel;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -47,5 +49,17 @@ public class PlayerController : MonoBehaviour
     public void PickUpShovel()
     {
         shovel.SetActive(true);
+        hasShovel = true;
+    }
+
+    public void Dig()
+    {
+        if(!hasShovel)
+        {
+            return;
+        }
+        
+        Debug.Log("Digging");
+        playerAnimator.SetTrigger("Dig");
     }
 }
