@@ -97,7 +97,6 @@ public class MeterManager : MonoBehaviour
         {
             TriggerDeath(playerTwo);
         }
-        CheckGameOver();
     }
 
     public void TriggerDeath(PlayerController player)
@@ -111,6 +110,8 @@ public class MeterManager : MonoBehaviour
         player.enabled = false;
         TogglePlayersTurn();
         player.isDead = true;
+
+        CheckGameOver();
     }
 
     private void CheckGameOver()

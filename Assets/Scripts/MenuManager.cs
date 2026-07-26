@@ -71,12 +71,14 @@ public class MenuManager : MonoBehaviour
 
     public void ShowWinScreen(string playerName)
     {
+        gameMenu.SetActive(false);
         winScreen.SetActive(true);
         winText.text = playerName + " Wins!";
     }
 
     public void OnGameOver()
     {
+        gameMenu.SetActive(false);
         winScreen.SetActive(true);
         winText.text = "Game Over";
     }
