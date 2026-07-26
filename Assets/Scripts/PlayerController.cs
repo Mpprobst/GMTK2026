@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.XR;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,10 +22,12 @@ public class PlayerController : MonoBehaviour
     private GameObject shovel;
 
     public PlayerMeter meter;
-    public bool isDead = false;
+    public bool isDead = true;
     public string playerName;
+    protected bool isTurn;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected virtual void Start()
     {
         player = gameObject;
         playerRigidbody = player.GetComponent<Rigidbody>();
@@ -32,23 +35,49 @@ public class PlayerController : MonoBehaviour
         // audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public virtual void Initialize()
     {
-        if (isDead)
+        isDead = false;
+        gameObject.SetActive(true);
+    }
+
+    // Update is called once per frame
+    protected virtual void Update()
+    {
+        if (!isTurn || isDead)
         {
             return;
         }
+
+        Vector2 input = GetInput();
+        Move(input.x, input.y);      
+    }
+
+    public virtual void StartTurn()
+    {
+        isTurn = true;
+    }
+
+    public virtual void EndTurn()
+    {
+        isTurn = false;
+    }
+
+    protected virtual Vector2 GetInput()
+    {
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         // float moveX = Input.GetAxis("Horizontal"); // A/D or Left/Right
         // float moveZ = Input.GetAxis("Vertical");   // W/S or Up/Down
 
         var matrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
         var skewedInput = matrix.MultiplyPoint3x4(input);
-        float moveX = skewedInput.x;
-        float moveZ = skewedInput.z;
-        playerRigidbody.linearVelocity = new Vector3(moveX, 0, moveZ) * speed - Vector3.up;
-        Vector3 move = new Vector3(moveX, 0f, moveZ).normalized;
+        return new Vector2(skewedInput.x, skewedInput.z);
+    }
+
+    public void Move(float x, float y)
+    {
+        playerRigidbody.linearVelocity = new Vector3(x, 0, y) * speed - Vector3.up;
+        Vector3 move = new Vector3(x, 0f, y).normalized;
         float currentSpeed = move.magnitude;
 
         if (currentSpeed >= moveThreshold)
@@ -56,7 +85,8 @@ public class PlayerController : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(move);
             player.transform.rotation = rotation;
             dustParticle.SetActive(true);
-            meter.isMoving = true;
+            if (meter != null)
+                meter.isMoving = true;
         }
         else
         {
@@ -103,5 +133,11 @@ public class PlayerController : MonoBehaviour
 
         playerAnimator.SetTrigger("Dig");
         audioSource.PlayOneShot(digSound);
+    }
+    
+    public virtual void CollectWater(float amount)
+    {
+        if (meter)
+            meter.AddToMeter(amount);
     }
 }

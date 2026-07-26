@@ -24,6 +24,8 @@ public class LevelSpawner : MonoBehaviour
     [SerializeField] private GameObject[] borderTiles;
 
     private List<GameObject> tiles = new List<GameObject>();
+    public GameObject Oasis { get { return oasisTile; } }
+    private GameObject oasisTile;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -77,6 +79,9 @@ public class LevelSpawner : MonoBehaviour
                 spawnedTile.name = tile.name;
                 tiles.Add(spawnedTile);
 
+                if (tile.tileType == TILE_TYPE.OASIS)
+                    oasisTile = spawnedTile;
+
                 spawnedTile.GetComponent<Tile>().Initialize(itemPct);
             }
         }
@@ -109,8 +114,6 @@ public class LevelSpawner : MonoBehaviour
             border.transform.localScale = Vector3.one * tileSize;
             tiles.Add(border);
         }
-
-        // TODO: spawn a couple mirages
     }
 
     public void WaveFunctionCollapse()

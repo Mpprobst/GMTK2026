@@ -44,10 +44,25 @@ public class MenuManager : MonoBehaviour
         mainMenu.SetActive(false);
         gameMenu.SetActive(true);
         isPlaying = true;
+        meterManager.playerOne.Initialize();
+        meterManager.playerTwo.Initialize();
+
         meterManager.TogglePlayersTurn();
         //CameraController.Instance.onCameraFinishZoom.AddListener(meterManager.TogglePlayersTurn);
         //CameraController.Instance.SetTarget(meterManager.playerOne.transform);
         CameraController.Instance.ZoomIn();
+    }
+
+    public void StartTwoPlayer()
+    {
+        meterManager.playerTwo = meterManager.humanPlayer2;
+        StartGame();
+    }
+
+    public void StartSinglePlayer()
+    {
+        meterManager.playerTwo = meterManager.cpuPlayer2;
+        StartGame();
     }
 
     public void TogglePause()

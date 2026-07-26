@@ -13,8 +13,7 @@ public class Interactable : MonoBehaviour
         Oasis
     }
 
-    [SerializeField]
-    private InteractionType interactionType = InteractionType.None;
+    public InteractionType interactionType = InteractionType.None;
     [SerializeField]
     private GameObject holePrefab;
 
@@ -51,7 +50,8 @@ public class Interactable : MonoBehaviour
             else if (interactionType == InteractionType.Water)
             {
                 Debug.Log("Water");
-                meterManager.AddToMeter(playerController, waterAmount);
+                //meterManager.AddToMeter(playerController, waterAmount);
+                playerController.CollectWater(waterAmount);
             }
             else if (interactionType == InteractionType.DigSite)
             {
