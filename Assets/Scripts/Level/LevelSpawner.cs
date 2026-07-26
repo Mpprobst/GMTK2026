@@ -8,6 +8,7 @@ public class LevelSpawner : MonoBehaviour
     [SerializeField] protected GameObject[] tilePrefabs;
     [SerializeField] private int rows, cols;
     [Range(0, 1)] [SerializeField] private float tilePct = 0.1f;
+    [Range(0, 1)] [SerializeField] private float itemPct = 0.1f;
     [SerializeField] private float tileSize = 1;
     [SerializeField] private Transform tileContainer;
 
@@ -51,6 +52,7 @@ public class LevelSpawner : MonoBehaviour
             tileDataDict.Add(t.tileType, t);
         }
 
+        int cellct = rows * cols;
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < cols; j++)
@@ -64,8 +66,11 @@ public class LevelSpawner : MonoBehaviour
                 // spawn a tile at random
                 Vector3 pos = corner + new Vector3(i, 0, j) * tileSize;
                 GameObject spawnedTile = (GameObject)Instantiate(tile.prefab, pos, Quaternion.identity, tileContainer);
+                spawnedTile.transform.localScale = tileSize * Vector3.one;
                 spawnedTile.name = tile.name;
                 tiles.Add(spawnedTile);
+
+                spawnedTile.GetComponent<Tile>().Initialize(itemPct);
             }
         }
     }
@@ -137,7 +142,7 @@ public class LevelSpawner : MonoBehaviour
                 grid[x, y] = tileDataDict.Keys.ToList();
 
             // when picking a tile, leave only one tile option left so we know what to spawn
-            Debug.Log($"{grid.GetLength(0)}x{grid.GetLength(1)}  {x},{y} = {grid[x,y].Count}");
+            //Debug.Log($"{grid.GetLength(0)}x{grid.GetLength(1)}  {x},{y} = {grid[x,y].Count}");
             TILE_TYPE randTile = TILE_TYPE.FLAT;
             if (grid[x,y].Count > 0)
                 randTile = grid[x, y][Random.Range(0, grid[x, y].Count)];

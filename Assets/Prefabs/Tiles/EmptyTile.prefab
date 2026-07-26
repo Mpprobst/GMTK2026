@@ -10,7 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2380875947284854475, guid: d48122ed189e34948a2524344204c7c8, type: 3}
       propertyPath: m_Name
-      value: EmptyTile Variant
+      value: EmptyTile
+      objectReference: {fileID: 0}
+    - target: {fileID: 3253995674336192800, guid: d48122ed189e34948a2524344204c7c8, type: 3}
+      propertyPath: itemChance
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8011044951528088374, guid: d48122ed189e34948a2524344204c7c8, type: 3}
       propertyPath: m_LocalPosition.x

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8011044951528088374}
+  - component: {fileID: 3253995674336192800}
   m_Layer: 0
   m_Name: TileBase
   m_TagString: Untagged
@@ -26,12 +27,32 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 0.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6776406111541644121}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3253995674336192800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2380875947284854475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78cd12940893304480e62ea25383b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemChance: 0.5
+  items:
+  - prefab: {fileID: 7709238984441305907, guid: f17db45a709aa41c7b1c83dbdb6dad11, type: 3}
+    rarity: 4
+  - prefab: {fileID: 4217740242115772855, guid: 0145180aa2f6d4e249771471b1aa836b, type: 3}
+    rarity: 2
+  - prefab: {fileID: 714389553504397499, guid: 4cb815827c38442b7827d50ce2da371c, type: 3}
+    rarity: 5
 --- !u!1 &8779835051072125554
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,7 +82,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.05, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8011044951528088374}

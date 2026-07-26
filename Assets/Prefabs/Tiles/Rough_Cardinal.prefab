@@ -12,17 +12,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rough_Cardinal
       objectReference: {fileID: 0}
+    - target: {fileID: 3253995674336192800, guid: d48122ed189e34948a2524344204c7c8, type: 3}
+      propertyPath: itemChance
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 6776406111541644121, guid: d48122ed189e34948a2524344204c7c8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6776406111541644121, guid: d48122ed189e34948a2524344204c7c8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6776406111541644121, guid: d48122ed189e34948a2524344204c7c8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.8
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6776406111541644121, guid: d48122ed189e34948a2524344204c7c8, type: 3}
       propertyPath: m_ConstrainProportionsScale
