@@ -37,8 +37,7 @@ public class PlayerController : MonoBehaviour
         var skewedInput = matrix.MultiplyPoint3x4(input);
         float moveX = skewedInput.x;
         float moveZ = skewedInput.z;
-
-        playerRigidbody.linearVelocity = new Vector3(moveX, 0, moveZ) * speed;
+        playerRigidbody.linearVelocity = new Vector3(moveX, 0, moveZ) * speed - Vector3.up;
         Vector3 move = new Vector3(moveX, 0f, moveZ).normalized;
         float currentSpeed = move.magnitude;
 
