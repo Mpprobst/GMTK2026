@@ -1,17 +1,24 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MeterManager : MonoBehaviour
 {
-    public PlayerMeter playerMeter;
-    public PlayerMeter enemyMeter;
-    private bool isPlayersTurn;
+    public PlayerMeter playerOneMeter;
+    public PlayerMeter playerTwoMeter;
+
+    public PlayerController playerOne;
+    public PlayerController playerTwo;
+    private PlayerMeter activePlayer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        isPlayersTurn = true;
-        playerMeter.ResumeMeter();
-        playerMeter.isPlayer = true;
+        activePlayer = playerOneMeter;
+        playerOneMeter.ResumeMeter();
+        playerOneMeter.isPlayer = true;
+        playerTwoMeter.isPlayer = true;
+        playerOne.enabled = true;
+        playerTwo.enabled = false;
     }
 
     // Update is called once per frame
@@ -20,30 +27,36 @@ public class MeterManager : MonoBehaviour
         // Check for spacebar press
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (isPlayersTurn)
-            {
-                isPlayersTurn = false;
-                playerMeter.PauseMeter();
-                enemyMeter.ResumeMeter();
-            }
-            else
-            {
-                isPlayersTurn = true;
-                playerMeter.ResumeMeter();
-                enemyMeter.PauseMeter();
-            }
+            TogglePlayersTurn();
         }
+    }
+
+    void TogglePlayersTurn()
+    {
+        activePlayer.PauseMeter(); // stop the current player's meter
+
+        // swap the active player
+        if (activePlayer == playerOneMeter)
+        {
+            activePlayer = playerTwoMeter;
+            playerOne.enabled = false;
+            playerTwo.enabled = true;
+        }
+        else
+        {
+            activePlayer = playerOneMeter;
+            playerOne.enabled = true;
+            playerTwo.enabled = false;
+        }
+        
+        activePlayer.ResumeMeter();
     }
 
     public void AddToMeter(PlayerController playerController, float amount)
     {
         if (playerController != null)
         {
-            playerMeter.AddToMeter(amount);
-        }
-        else
-        {
-            enemyMeter.AddToMeter(amount);
+            activePlayer.AddToMeter(amount);
         }
     }
 }
