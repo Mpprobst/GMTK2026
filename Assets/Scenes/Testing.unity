@@ -261,6 +261,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8661942151196259922, guid: 1e5f6a3ffb90b5d418342e559a13326d, type: 3}
+      propertyPath: itemPct
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8661942151196259922, guid: 1e5f6a3ffb90b5d418342e559a13326d, type: 3}
       propertyPath: tileSize
       value: 4
       objectReference: {fileID: 0}

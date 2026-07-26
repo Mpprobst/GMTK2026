@@ -158,7 +158,7 @@ MonoBehaviour:
   rows: 50
   cols: 50
   tilePct: 0.1
-  itemPct: 1
+  itemPct: 0.5
   tileSize: 1
   tileContainer: {fileID: 8895741330804876497}
   tileData:
