@@ -56,6 +56,7 @@ public class MenuManager : MonoBehaviour
     public void StartTwoPlayer()
     {
         meterManager.playerTwo = meterManager.humanPlayer2;
+        meterManager.cpuPlayer2.gameObject.SetActive(false);
         StartGame();
     }
 

@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector2 input = GetInput();
-        Move(input.x, input.y);      
+        Move(input.x, input.y);
     }
 
     public virtual void StartTurn()
@@ -118,8 +118,11 @@ public class PlayerController : MonoBehaviour
             return;
         }
         dustParticle.SetActive(false);
-        playerAnimator.SetFloat("Speed", 0);
-        playerAnimator.Play("idle");
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetFloat("Speed", 0);
+            playerAnimator.Play("idle");
+        }
     }
 
     public void PickUpShovel()
@@ -138,7 +141,7 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetTrigger("Dig");
         audioSource.PlayOneShot(digSound);
     }
-    
+
     public virtual void CollectWater(float amount)
     {
         if (meter)
