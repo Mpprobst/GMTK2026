@@ -57,9 +57,13 @@ public class MenuManager : MonoBehaviour
         }
         isPaused = !isPaused;
     }
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
 
     public void QuitGame()
     {
-        SceneManager.LoadScene(0);
+        Application.Quit();
     }
 }
