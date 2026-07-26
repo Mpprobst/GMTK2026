@@ -282,7 +282,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4568723329566090, guid: aaae27bbd1801440da7f4155f27fae05, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.13925
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4568723329566090, guid: aaae27bbd1801440da7f4155f27fae05, type: 3}
       propertyPath: m_LocalPosition.y
@@ -290,15 +290,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4568723329566090, guid: aaae27bbd1801440da7f4155f27fae05, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.02687
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4568723329566090, guid: aaae27bbd1801440da7f4155f27fae05, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4568723329566090, guid: aaae27bbd1801440da7f4155f27fae05, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4568723329566090, guid: aaae27bbd1801440da7f4155f27fae05, type: 3}
       propertyPath: m_LocalRotation.y
@@ -306,7 +306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4568723329566090, guid: aaae27bbd1801440da7f4155f27fae05, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4568723329566090, guid: aaae27bbd1801440da7f4155f27fae05, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -330,7 +330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198760395510834500, guid: aaae27bbd1801440da7f4155f27fae05, type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198760395510834500, guid: aaae27bbd1801440da7f4155f27fae05, type: 3}
       propertyPath: ShapeModule.radius.value
@@ -354,15 +354,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198760395510834500, guid: aaae27bbd1801440da7f4155f27fae05, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0
+      value: 0.21573514
       objectReference: {fileID: 0}
     - target: {fileID: 198760395510834500, guid: aaae27bbd1801440da7f4155f27fae05, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.55128205
+      value: 0.37346616
       objectReference: {fileID: 0}
     - target: {fileID: 198760395510834500, guid: aaae27bbd1801440da7f4155f27fae05, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 1
+      value: 0.4528302
       objectReference: {fileID: 0}
     - target: {fileID: 198760395510834500, guid: aaae27bbd1801440da7f4155f27fae05, type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
