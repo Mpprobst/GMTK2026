@@ -139,5 +139,10 @@ public class PlayerController : MonoBehaviour
     {
         if (meter)
             meter.AddToMeter(amount);
+        if (TryGetComponent<AudioSource>(out AudioSource source))
+        {
+            source.time = 0.1f;
+            source.Play();
+        }
     }
 }

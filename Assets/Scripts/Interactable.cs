@@ -52,6 +52,7 @@ public class Interactable : MonoBehaviour
                 Debug.Log("Water");
                 //meterManager.AddToMeter(playerController, waterAmount);
                 playerController.CollectWater(waterAmount);
+                
             }
             else if (interactionType == InteractionType.DigSite)
             {
