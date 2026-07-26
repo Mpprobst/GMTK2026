@@ -42,8 +42,8 @@ public class LevelSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && Debug.isDebugBuild)
-            SpawnLevel();
+        //if (Input.GetKeyDown(KeyCode.Space) && Debug.isDebugBuild)
+        //    SpawnLevel();
     }
 
     public void SpawnLevel()
