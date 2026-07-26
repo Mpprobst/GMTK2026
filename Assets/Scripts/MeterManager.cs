@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class MeterManager : MonoBehaviour
@@ -9,6 +11,7 @@ public class MeterManager : MonoBehaviour
     public PlayerController playerOne;
     public PlayerController playerTwo;
     private PlayerMeter activePlayer;
+    public UnityEvent gameOverEvent;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,6 +40,10 @@ public class MeterManager : MonoBehaviour
 
     void TogglePlayersTurn()
     {
+        if (playerOne.isDead || playerTwo.isDead)
+        {
+            return;
+        }
         activePlayer.PauseMeter(); // stop the current player's meter
 
         // swap the active player
@@ -76,15 +83,33 @@ public class MeterManager : MonoBehaviour
     {
         if (activePlayer == playerOneMeter)
         {
-            playerOne.Die();
-            playerOne.enabled = false;
-            TogglePlayersTurn();
+
+            TriggerDeath(playerOne);
         }
         else
         {
-            playerTwo.Die(); // TODO: make player die before switching! and make sure that pressing space does not turn off the only plaeyer left.
-            playerTwo.enabled = false;
-            TogglePlayersTurn();
+            TriggerDeath(playerTwo);
+        }
+    }
+
+    public void TriggerDeath(PlayerController player)
+    {
+        StartCoroutine(WaitForDeathAnimation(player));
+    }
+
+    private IEnumerator WaitForDeathAnimation(PlayerController player)
+    {
+        yield return player.Die();
+        player.enabled = false;
+        TogglePlayersTurn();
+        player.isDead = true;
+    }
+
+    private void CheckGameOver()
+    {
+        if (playerOne.isDead && playerTwo.isDead)
+        {
+            gameOverEvent.Invoke();
         }
     }
 }

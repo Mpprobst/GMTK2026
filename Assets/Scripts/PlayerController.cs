@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private GameObject shovel;
 
     public PlayerMeter meter;
-    private bool isDead = false;
+    public bool isDead = false;
     public string playerName;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -70,10 +71,10 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetFloat("Speed", currentSpeed);
     }
 
-    public void Die()
+    public IEnumerator Die()
     {
         playerAnimator.SetTrigger("Die");
-        isDead = true;
+        yield return new WaitForSeconds(1.5f);
     }
 
     public void PickUpShovel()
@@ -89,7 +90,6 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        Debug.Log("Digging");
         playerAnimator.SetTrigger("Dig");
         audioSource.PlayOneShot(digSound);
     }

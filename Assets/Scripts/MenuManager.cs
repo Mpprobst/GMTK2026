@@ -24,7 +24,7 @@ public class MenuManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        meterManager.gameOverEvent.AddListener(OnGameOver);
     }
 
     // Update is called once per frame
@@ -69,6 +69,12 @@ public class MenuManager : MonoBehaviour
     {
         winScreen.SetActive(true);
         winText.text = playerName + " Wins!";
+    }
+
+    public void OnGameOver()
+    {
+        winScreen.SetActive(true);
+        winText.text = "Game Over";
     }
 
     public void QuitGame()
