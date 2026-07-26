@@ -43,12 +43,14 @@ public class MeterManager : MonoBehaviour
             activePlayer = playerTwoMeter;
             playerOne.enabled = false;
             playerTwo.enabled = true;
+            CameraController.Instance.target = playerTwo.transform;
         }
         else
         {
             activePlayer = playerOneMeter;
             playerOne.enabled = true;
             playerTwo.enabled = false;
+            CameraController.Instance.target = playerOne.transform;
         }
 
         activePlayer.ResumeMeter();
