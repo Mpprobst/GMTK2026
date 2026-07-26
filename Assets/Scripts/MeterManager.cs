@@ -8,13 +8,14 @@ public class MeterManager : MonoBehaviour
 
     public PlayerController playerOne;
     public PlayerController playerTwo;
-    private PlayerMeter activePlayer;
+    private PlayerController activePlayer;
+    private PlayerMeter activeMeter;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        activePlayer = playerOneMeter;
-        playerOneMeter.ResumeMeter();
+        //activePlayer = playerOneMeter;
+        //playerOneMeter.ResumeMeter();
         playerOneMeter.isPlayer = true;
         playerTwoMeter.isPlayer = true;
         playerOne.enabled = true;
@@ -33,40 +34,51 @@ public class MeterManager : MonoBehaviour
         }
     }
 
-    void TogglePlayersTurn()
+    public void TogglePlayersTurn()
     {
-        activePlayer.PauseMeter(); // stop the current player's meter
+        if (activeMeter)
+            activeMeter.PauseMeter(); // stop the current player's meter
 
         // swap the active player
-        if (activePlayer == playerOneMeter)
+        if (activeMeter == playerOneMeter)
         {
-            activePlayer = playerTwoMeter;
+            activeMeter = playerTwoMeter;
+            activePlayer = playerTwo;
             playerOne.enabled = false;
-            playerTwo.enabled = true;
-            CameraController.Instance.target = playerTwo.transform;
+            //playerTwo.enabled = true;
+            CameraController.Instance.onCameraFinishZoom.AddListener(EnableMovement);
+            CameraController.Instance.SetTarget(playerTwo.transform);
         }
         else
         {
-            activePlayer = playerOneMeter;
-            playerOne.enabled = true;
+            activeMeter = playerOneMeter;
+            activePlayer = playerOne;
+            //playerOne.enabled = true;
             playerTwo.enabled = false;
-            CameraController.Instance.target = playerOne.transform;
+            CameraController.Instance.onCameraFinishZoom.AddListener(EnableMovement);
+            CameraController.Instance.SetTarget(playerOne.transform);
         }
 
-        activePlayer.ResumeMeter();
+        //activePlayer.ResumeMeter();
+    }
+
+    private void EnableMovement()
+    {
+        activeMeter.ResumeMeter();
+        activePlayer.enabled = true;
     }
 
     public void AddToMeter(PlayerController playerController, float amount)
     {
         if (playerController != null)
         {
-            activePlayer.AddToMeter(amount);
+            activeMeter.AddToMeter(amount);
         }
     }
 
     public void OnMeterEmpty()
     {
-        if (activePlayer == playerOneMeter)
+        if (activeMeter == playerOneMeter)
         {
             playerOne.Die();
         }

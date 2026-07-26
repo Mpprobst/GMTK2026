@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security;
 using UnityEngine;
 
 public class LevelSpawner : MonoBehaviour
@@ -19,6 +20,8 @@ public class LevelSpawner : MonoBehaviour
     private bool[,] visited;
     Dictionary<TILE_TYPE, TileData> tileDataDict = new Dictionary<TILE_TYPE, TileData>();
 
+    [Header("Border")]
+    [SerializeField] private GameObject[] borderTiles;
 
     private List<GameObject> tiles = new List<GameObject>();
 
@@ -79,7 +82,35 @@ public class LevelSpawner : MonoBehaviour
         }
 
         // TODO: spawn wall tiles around the outside
-        // TODO: spawn an oasis
+        for (int i = 0; i <= rows + 1; i++)
+        {
+            Vector3 pos = corner - new Vector3(1, 0, 1) * tileSize + Vector3.right * i * tileSize;
+            Quaternion randRot = Quaternion.Euler(0, Random.Range(0, 4) * 90, 0);
+            GameObject border = Instantiate(borderTiles[Random.Range(0, borderTiles.Length)], pos, randRot, tileContainer);
+            border.transform.localScale = Vector3.one * tileSize;
+            tiles.Add(border);
+
+            pos = corner + Vector3.forward * (cols + 1) * tileSize + Vector3.right * i * tileSize;
+            border = Instantiate(borderTiles[Random.Range(0, borderTiles.Length)], pos, randRot, tileContainer);
+            border.transform.localScale = Vector3.one * tileSize;
+            tiles.Add(border);
+        }
+
+        for (int i = 0; i <= cols + 1; i++)
+        {
+            Vector3 pos = corner - Vector3.right * tileSize + Vector3.forward * i * tileSize;
+            Quaternion randRot = Quaternion.Euler(0, Random.Range(0, 4) * 90, 0);
+            GameObject border = Instantiate(borderTiles[Random.Range(0, borderTiles.Length)], pos, randRot, tileContainer);
+            border.transform.localScale = Vector3.one * tileSize;
+            tiles.Add(border);
+
+            pos = corner - Vector3.forward * tileSize + Vector3.right * (rows + 1) * tileSize + Vector3.forward * i * tileSize;
+            border = Instantiate(borderTiles[Random.Range(0, borderTiles.Length)], pos, randRot, tileContainer);
+            border.transform.localScale = Vector3.one * tileSize;
+            tiles.Add(border);
+        }
+
+        // TODO: spawn a couple mirages
     }
 
     public void WaveFunctionCollapse()
@@ -89,11 +120,22 @@ public class LevelSpawner : MonoBehaviour
         grid = new List<TILE_TYPE>[rows,cols];
         visited = new bool[rows,cols];
         
-        int x = Random.Range(rows/2, rows);
-        int y = Random.Range(rows/2, cols);
         int gridSize = rows * cols;
         // force first tile to be the oasis
-        Collapse(x, y, TILE_TYPE.OASIS);
+        bool[] oasisRule = new bool[3];
+        oasisRule[Random.Range(0, 3)] = true;
+
+        int x = Random.Range(rows / 5, rows / 3);
+        int y = Random.Range(cols / 3 * 2, cols);
+        Collapse(x, y, oasisRule[0] ? TILE_TYPE.OASIS : TILE_TYPE.MIRAGE);
+        
+        x = Random.Range(rows / 3 * 2, rows / 4 * 3);
+        y = Random.Range(cols / 3 * 2, cols);
+        Collapse(x, y, oasisRule[1] ? TILE_TYPE.OASIS : TILE_TYPE.MIRAGE);
+        
+        x = Random.Range(rows / 4 * 3, rows);
+        y = Random.Range(rows / 5, cols / 3);
+        Collapse(x, y, oasisRule[2] ? TILE_TYPE.OASIS : TILE_TYPE.MIRAGE);
 
         // do this while all tiles have not been explored
         for (int i = 0; i < gridSize; i++)

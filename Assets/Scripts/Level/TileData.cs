@@ -13,7 +13,8 @@ public enum TILE_TYPE {
     ROUGH_SE, 
     ROUGH_SW, 
     ROUGH_NW,
-    OASIS
+    OASIS,
+    MIRAGE
 };
 
 public enum DIRECTIONS
