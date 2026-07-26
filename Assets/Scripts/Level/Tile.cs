@@ -37,4 +37,9 @@ public class Tile : MonoBehaviour
             }
         }
     }
+
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        
+    }
 }
