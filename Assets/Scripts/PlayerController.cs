@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private GameObject shovel;
+
+    public PlayerMeter meter;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -47,10 +50,15 @@ public class PlayerController : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(move);
             player.transform.rotation = rotation;
             dustParticle.SetActive(true);
+            meter.isMoving = true;
         }
         else
         {
             dustParticle.SetActive(false);
+            if (meter != null)
+            {
+                meter.isMoving = false;
+            }
         }
 
         playerAnimator.SetFloat("Speed", currentSpeed);

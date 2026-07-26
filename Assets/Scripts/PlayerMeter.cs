@@ -11,9 +11,11 @@ public class PlayerMeter : MonoBehaviour
     private bool isPaused = true;
     private Slider meterSlider;
     private float meterMultiplier = 6f;
+    private float regenMultiplier = 0.5f;
     public bool isPlayer = false;
 
     public UnityEvent OnMeterEmpty;
+    public bool isMoving = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -50,6 +52,17 @@ public class PlayerMeter : MonoBehaviour
     void Update()
     {
         if (isPaused)
+        {
+            // slow regeneration
+            previewHealth += Time.deltaTime * meterMultiplier * regenMultiplier;
+            if (previewHealth > maxHealth)
+            {
+                previewHealth = maxHealth;
+            }
+            meterSlider.value = previewHealth;
+            return;
+        }
+        else if (!isMoving)
         {
             return;
         }

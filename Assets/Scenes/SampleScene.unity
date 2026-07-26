@@ -329,6 +329,7 @@ MonoBehaviour:
   audioSource: {fileID: 963194229}
   dustParticle: {fileID: 689966030}
   shovel: {fileID: 174814743}
+  meter: {fileID: 0}
 --- !u!4 &361288302 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2edb6b7e48c1847949a115ffaa9f4364, type: 3}
@@ -1249,49 +1250,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2632146019250171437, guid: 68529a00c080c40238da5090633cd0ed, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 2790325503603587233, guid: 68529a00c080c40238da5090633cd0ed, type: 3}
+      propertyPath: m_Constraints
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 3112569220767142610, guid: 68529a00c080c40238da5090633cd0ed, type: 3}
       propertyPath: m_Name
       value: Player 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3462709706767684213, guid: 68529a00c080c40238da5090633cd0ed, type: 3}
-      propertyPath: playOnAwake
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3462709706767684213, guid: 68529a00c080c40238da5090633cd0ed, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.21573514
-      objectReference: {fileID: 0}
-    - target: {fileID: 3462709706767684213, guid: 68529a00c080c40238da5090633cd0ed, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.37346616
-      objectReference: {fileID: 0}
-    - target: {fileID: 3462709706767684213, guid: 68529a00c080c40238da5090633cd0ed, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.4528302
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664835660811563707, guid: 68529a00c080c40238da5090633cd0ed, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664835660811563707, guid: 68529a00c080c40238da5090633cd0ed, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664835660811563707, guid: 68529a00c080c40238da5090633cd0ed, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664835660811563707, guid: 68529a00c080c40238da5090633cd0ed, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664835660811563707, guid: 68529a00c080c40238da5090633cd0ed, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8819978253337014937, guid: 68529a00c080c40238da5090633cd0ed, type: 3}
       propertyPath: audioSource

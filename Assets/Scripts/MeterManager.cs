@@ -21,6 +21,8 @@ public class MeterManager : MonoBehaviour
         playerTwo.enabled = false;
         playerOneMeter.OnMeterEmpty.AddListener(OnMeterEmpty);
         playerTwoMeter.OnMeterEmpty.AddListener(OnMeterEmpty);
+        playerOne.meter = playerOneMeter;
+        playerTwo.meter = playerTwoMeter;
     }
 
     // Update is called once per frame
@@ -43,14 +45,20 @@ public class MeterManager : MonoBehaviour
             activePlayer = playerTwoMeter;
             playerOne.enabled = false;
             playerTwo.enabled = true;
-            CameraController.Instance.target = playerTwo.transform;
+            if (CameraController.Instance != null)
+            {
+                CameraController.Instance.target = playerTwo.transform;
+            }
         }
         else
         {
             activePlayer = playerOneMeter;
             playerOne.enabled = true;
             playerTwo.enabled = false;
-            CameraController.Instance.target = playerOne.transform;
+            if (CameraController.Instance != null)
+            {
+                CameraController.Instance.target = playerTwo.transform;
+            }
         }
 
         activePlayer.ResumeMeter();
