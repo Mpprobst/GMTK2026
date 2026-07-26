@@ -14,6 +14,8 @@ public class MeterManager : MonoBehaviour
     private PlayerMeter activeMeter;
     public UnityEvent gameOverEvent;
 
+    public PlayerController humanPlayer2, cpuPlayer2;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,11 +24,13 @@ public class MeterManager : MonoBehaviour
         playerOneMeter.isPlayer = true;
         playerTwoMeter.isPlayer = true;
         playerOne.enabled = true;
-        playerTwo.enabled = false;
+        humanPlayer2.enabled = false;
+        cpuPlayer2.enabled = false;
         playerOneMeter.OnMeterEmpty.AddListener(OnMeterEmpty);
         playerTwoMeter.OnMeterEmpty.AddListener(OnMeterEmpty);
         playerOne.meter = playerOneMeter;
-        playerTwo.meter = playerTwoMeter;
+        humanPlayer2.meter = playerTwoMeter;
+        cpuPlayer2.meter = playerTwoMeter;
     }
 
     // Update is called once per frame
@@ -35,6 +39,9 @@ public class MeterManager : MonoBehaviour
         // Check for spacebar press
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (activeMeter == playerTwoMeter && playerTwo != humanPlayer2)
+                return;
+
             TogglePlayersTurn();
         }
     }
@@ -61,6 +68,8 @@ public class MeterManager : MonoBehaviour
             }
             playerOne.enabled = false;
             //playerTwo.enabled = true;
+            playerOne.EndTurn();
+            playerTwo.StartTurn();
             CameraController.Instance.onCameraFinishZoom.AddListener(EnableMovement);
             CameraController.Instance.SetTarget(playerTwo.transform);
         }
@@ -68,6 +77,8 @@ public class MeterManager : MonoBehaviour
         {
             activeMeter = playerOneMeter;
             activePlayer = playerOne;
+            playerTwo.EndTurn();
+            playerOne.StartTurn();
             //playerOne.enabled = true;
             if (!deathToggle)
             {

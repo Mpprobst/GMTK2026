@@ -7,10 +7,11 @@ public class PlayerMeter : MonoBehaviour
 {
     private float maxHealth = 100;
     // private float currentHealth;
+    public float PreviewHealth { get { return previewHealth; } }
     private float previewHealth;
     private bool isPaused = true;
     private Slider meterSlider;
-    private float meterMultiplier = 6f;
+    public float meterMultiplier = 6f;
     private float regenMultiplier = 0.5f;
     private float restMultiplier = 0.33f;
     public bool isPlayer = false;
