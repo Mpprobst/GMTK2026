@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using DG.Tweening;
+using UnityEngine.Events;
 public class PlayerMeter : MonoBehaviour
 {
     private float maxHealth = 100;
@@ -11,6 +12,8 @@ public class PlayerMeter : MonoBehaviour
     private Slider meterSlider;
     private float meterMultiplier = 6f;
     public bool isPlayer = false;
+
+    public UnityEvent OnMeterEmpty;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,10 +57,7 @@ public class PlayerMeter : MonoBehaviour
             {
                 previewHealth = 0;
                 //player die
-                if (isPlayer)
-                {
-                    FindFirstObjectByType<PlayerController>().Die();
-                }
+                OnMeterEmpty.Invoke();
             }
             meterSlider.value = previewHealth;
         }

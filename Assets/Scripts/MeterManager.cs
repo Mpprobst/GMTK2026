@@ -19,6 +19,8 @@ public class MeterManager : MonoBehaviour
         playerTwoMeter.isPlayer = true;
         playerOne.enabled = true;
         playerTwo.enabled = false;
+        playerOneMeter.OnMeterEmpty.AddListener(OnMeterEmpty);
+        playerTwoMeter.OnMeterEmpty.AddListener(OnMeterEmpty);
     }
 
     // Update is called once per frame
@@ -48,7 +50,7 @@ public class MeterManager : MonoBehaviour
             playerOne.enabled = true;
             playerTwo.enabled = false;
         }
-        
+
         activePlayer.ResumeMeter();
     }
 
@@ -57,6 +59,18 @@ public class MeterManager : MonoBehaviour
         if (playerController != null)
         {
             activePlayer.AddToMeter(amount);
+        }
+    }
+
+    public void OnMeterEmpty()
+    {
+        if (activePlayer == playerOneMeter)
+        {
+            playerOne.Die();
+        }
+        else
+        {
+            playerTwo.Die();
         }
     }
 }
