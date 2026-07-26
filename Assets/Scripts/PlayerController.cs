@@ -73,7 +73,19 @@ public class PlayerController : MonoBehaviour
     public IEnumerator Die()
     {
         playerAnimator.SetTrigger("Die");
+        dustParticle.SetActive(false);
         yield return new WaitForSeconds(1.5f);
+    }
+
+    public void Idle()
+    {
+        if (isDead)
+        {
+            return;
+        }
+        dustParticle.SetActive(false);
+        playerAnimator.SetFloat("Speed", 0);
+        playerAnimator.Play("idle");
     }
 
     public void PickUpShovel()

@@ -12,6 +12,7 @@ public class PlayerMeter : MonoBehaviour
     private Slider meterSlider;
     private float meterMultiplier = 6f;
     private float regenMultiplier = 0.5f;
+    private float restMultiplier = 0.33f;
     public bool isPlayer = false;
 
     public UnityEvent OnMeterEmpty;
@@ -67,13 +68,17 @@ public class PlayerMeter : MonoBehaviour
                 meterSlider.value = previewHealth;
                 return;
             }
-            else if (!isMoving)
-            {
-                return;
-            }
             else
             {
-                previewHealth -= Time.deltaTime * meterMultiplier;
+                if(isMoving)
+                {
+                    previewHealth -= Time.deltaTime * meterMultiplier;
+                }
+                else
+                {
+                    previewHealth -= Time.deltaTime * meterMultiplier * restMultiplier;
+                }
+
                 if (previewHealth <= 0)
                 {
                     previewHealth = 0;

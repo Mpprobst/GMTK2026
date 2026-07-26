@@ -39,7 +39,7 @@ public class MeterManager : MonoBehaviour
         }
     }
 
-    public void TogglePlayersTurn()
+    public void TogglePlayersTurn(bool deathToggle = false)
     {
         if (playerOne.isDead || playerTwo.isDead)
         {
@@ -55,6 +55,10 @@ public class MeterManager : MonoBehaviour
         {
             activeMeter = playerTwoMeter;
             activePlayer = playerTwo;
+            if (!deathToggle)
+            {
+                playerOne.Idle();
+            }
             playerOne.enabled = false;
             //playerTwo.enabled = true;
             CameraController.Instance.onCameraFinishZoom.AddListener(EnableMovement);
@@ -65,6 +69,10 @@ public class MeterManager : MonoBehaviour
             activeMeter = playerOneMeter;
             activePlayer = playerOne;
             //playerOne.enabled = true;
+            if (!deathToggle)
+            {
+                playerTwo.Idle();
+            }
             playerTwo.enabled = false;
             CameraController.Instance.onCameraFinishZoom.AddListener(EnableMovement);
             CameraController.Instance.SetTarget(playerOne.transform);
@@ -108,7 +116,7 @@ public class MeterManager : MonoBehaviour
     {
         yield return player.Die();
         player.enabled = false;
-        TogglePlayersTurn();
+        TogglePlayersTurn(true);
         player.isDead = true;
 
         CheckGameOver();
