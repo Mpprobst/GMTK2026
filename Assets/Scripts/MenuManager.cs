@@ -15,6 +15,8 @@ public class MenuManager : MonoBehaviour
 
     private bool isPaused = false;
     private bool isPlaying = false;
+    public MeterManager meterManager;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -54,9 +56,13 @@ public class MenuManager : MonoBehaviour
         }
         isPaused = !isPaused;
     }
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
 
     public void QuitGame()
     {
-        SceneManager.LoadScene(0);
+        Application.Quit();
     }
 }
