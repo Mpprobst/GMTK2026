@@ -1,4 +1,5 @@
 using DG.Tweening;
+using UnityEditor;
 using UnityEngine;
 
 public class Interactable : MonoBehaviour
@@ -25,7 +26,7 @@ public class Interactable : MonoBehaviour
     {
         if (interactionType == InteractionType.Water)
         {
-            meterManager = FindFirstObjectByType<MeterManager>();
+            meterManager = FindFirstObjectByType<MenuManager>().meterManager;
         }
     }
 

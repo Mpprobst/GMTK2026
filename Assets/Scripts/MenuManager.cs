@@ -16,6 +16,8 @@ public class MenuManager : MonoBehaviour
 
     private bool isPaused = false;
     private bool isPlaying = false;
+    public MeterManager meterManager;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
