@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -23,19 +24,22 @@ public class PlayerController : MonoBehaviour
     public PlayerMeter meter;
     public bool isDead = false;
     public string playerName;
+
+    private MenuManager menuManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = gameObject;
         playerRigidbody = player.GetComponent<Rigidbody>();
         playerAnimator = player.GetComponent<Animator>();
+        menuManager = FindFirstObjectByType<MenuManager>();
         // audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isDead)
+        if (isDead || menuManager.isPaused)
         {
             return;
         }

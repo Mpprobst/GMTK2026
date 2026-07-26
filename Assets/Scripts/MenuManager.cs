@@ -14,7 +14,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private GameObject pauseMenu;
 
-    private bool isPaused = false;
+    public bool isPaused = false;
     private bool isPlaying = false;
     public MeterManager meterManager;
 

@@ -19,6 +19,12 @@ public class PlayerMeter : MonoBehaviour
     public bool isMoving = false;
     private bool isDead = false;
 
+    [SerializeField]
+    private Color pauseColor;
+
+    [SerializeField]
+    private Image fillImage;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,11 +36,16 @@ public class PlayerMeter : MonoBehaviour
     public void PauseMeter()
     {
         isPaused = true;
+        // color should be 136, 197, 227
+        fillImage.color = pauseColor;
     }
 
     public void ResumeMeter()
     {
         isPaused = false;
+        // set fill color to 00A5FF
+        fillImage.color = new Color(0, 0.65f, 1f);
+    
     }
 
     public void AddToMeter(float amount)
