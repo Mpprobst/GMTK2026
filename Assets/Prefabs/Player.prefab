@@ -158,6 +158,8 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   dustParticle: {fileID: 3659410008576981449}
   shovel: {fileID: 2632146019250171437}
+  meter: {fileID: 0}
+  playerName: Player 1
 --- !u!95 &6041275859440566921
 Animator:
   serializedVersion: 7

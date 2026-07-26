@@ -1201,6 +1201,8 @@ MonoBehaviour:
   gameMenu: {fileID: 260056694815095643}
   pauseMenu: {fileID: 8559424649197415884}
   meterManager: {fileID: 1230188362261767093}
+  winText: {fileID: 2915690023375656020}
+  winScreen: {fileID: 1321212181743391957}
 --- !u!1 &3617058426029362888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1441,6 +1443,7 @@ MonoBehaviour:
   OnMeterEmpty:
     m_PersistentCalls:
       m_Calls: []
+  isMoving: 0
 --- !u!114 &1441501728384648135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1568,6 +1571,7 @@ MonoBehaviour:
   OnMeterEmpty:
     m_PersistentCalls:
       m_Calls: []
+  isMoving: 0
 --- !u!114 &2111002949657729681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1754,7 +1758,7 @@ GameObject:
   - component: {fileID: 5254288488180421545}
   - component: {fileID: 2915690023375656020}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Win Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1807,7 +1811,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You Win!
+  m_text: Player 1 wins!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9b8bdb13f6055448b80e4bb5cc82393f, type: 2}
   m_sharedMaterial: {fileID: -2182449540144589129, guid: 9b8bdb13f6055448b80e4bb5cc82393f, type: 2}

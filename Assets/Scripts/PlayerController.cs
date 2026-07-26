@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private GameObject shovel;
 
     public PlayerMeter meter;
+    private bool isDead = false;
+    public string playerName;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -32,6 +34,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         // float moveX = Input.GetAxis("Horizontal"); // A/D or Left/Right
         // float moveZ = Input.GetAxis("Vertical");   // W/S or Up/Down
@@ -67,6 +73,7 @@ public class PlayerController : MonoBehaviour
     public void Die()
     {
         playerAnimator.SetTrigger("Die");
+        isDead = true;
     }
 
     public void PickUpShovel()

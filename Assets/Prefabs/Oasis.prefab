@@ -118,6 +118,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7368404689689369871}
+  - component: {fileID: 8841758106922506026}
+  - component: {fileID: 3255312071899220554}
   m_Layer: 0
   m_Name: Oasis
   m_TagString: Untagged
@@ -158,6 +160,41 @@ Transform:
   - {fileID: 138797703321602126}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8841758106922506026
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7411755923034061675}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.5996366, y: 2.5753055, z: 5.107915}
+  m_Center: {x: 0, y: 1.1768632, z: 0}
+--- !u!114 &3255312071899220554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7411755923034061675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf9ee217ac0b44e9c8d499e798cc5311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionType: 4
+  holePrefab: {fileID: 0}
 --- !u!1001 &630078401398275021
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ public class PlayerMeter : MonoBehaviour
 
     public UnityEvent OnMeterEmpty;
     public bool isMoving = false;
+    private bool isDead = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -51,32 +52,37 @@ public class PlayerMeter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
         if (isPaused)
-        {
-            // slow regeneration
-            previewHealth += Time.deltaTime * meterMultiplier * regenMultiplier;
-            if (previewHealth > maxHealth)
             {
-                previewHealth = maxHealth;
+                // slow regeneration
+                previewHealth += Time.deltaTime * meterMultiplier * regenMultiplier;
+                if (previewHealth > maxHealth)
+                {
+                    previewHealth = maxHealth;
+                }
+                meterSlider.value = previewHealth;
+                return;
             }
-            meterSlider.value = previewHealth;
-            return;
-        }
-        else if (!isMoving)
-        {
-            return;
-        }
-        else
-        {
-            previewHealth -= Time.deltaTime * meterMultiplier;
-            if (previewHealth <= 0)
+            else if (!isMoving)
             {
-                previewHealth = 0;
-                //player die
-                OnMeterEmpty.Invoke();
+                return;
             }
-            meterSlider.value = previewHealth;
-        }
+            else
+            {
+                previewHealth -= Time.deltaTime * meterMultiplier;
+                if (previewHealth <= 0)
+                {
+                    previewHealth = 0;
+                    //player die
+                    OnMeterEmpty.Invoke();
+                    isDead = true;
+                }
+                meterSlider.value = previewHealth;
+            }
     }
 
     public void ShowAdjustedHealth()

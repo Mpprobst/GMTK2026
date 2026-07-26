@@ -77,10 +77,14 @@ public class MeterManager : MonoBehaviour
         if (activePlayer == playerOneMeter)
         {
             playerOne.Die();
+            playerOne.enabled = false;
+            TogglePlayersTurn();
         }
         else
         {
-            playerTwo.Die();
+            playerTwo.Die(); // TODO: make player die before switching! and make sure that pressing space does not turn off the only plaeyer left.
+            playerTwo.enabled = false;
+            TogglePlayersTurn();
         }
     }
 }

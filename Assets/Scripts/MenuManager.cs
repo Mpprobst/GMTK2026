@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,6 +17,9 @@ public class MenuManager : MonoBehaviour
     private bool isPaused = false;
     private bool isPlaying = false;
     public MeterManager meterManager;
+
+    public TextMeshProUGUI winText;
+    public GameObject winScreen;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -59,6 +63,12 @@ public class MenuManager : MonoBehaviour
     public void LoadMainMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void ShowWinScreen(string playerName)
+    {
+        winScreen.SetActive(true);
+        winText.text = playerName + " Wins!";
     }
 
     public void QuitGame()

@@ -9,7 +9,8 @@ public class Interactable : MonoBehaviour
         None,
         Shovel,
         Water,
-        DigSite
+        DigSite,
+        Oasis
     }
 
     [SerializeField]
@@ -64,7 +65,11 @@ public class Interactable : MonoBehaviour
                 {
                     return;
                 }
-
+            }
+            else if (interactionType == InteractionType.Oasis)
+            {
+                Debug.Log("Oasis");
+                FindFirstObjectByType<MenuManager>().ShowWinScreen(playerController.playerName);
             }
 
         }

@@ -330,6 +330,7 @@ MonoBehaviour:
   dustParticle: {fileID: 689966030}
   shovel: {fileID: 174814743}
   meter: {fileID: 0}
+  playerName: Player 2
 --- !u!4 &361288302 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2edb6b7e48c1847949a115ffaa9f4364, type: 3}
@@ -1145,6 +1146,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f17db45a709aa41c7b1c83dbdb6dad11, type: 3}
+--- !u!1001 &2943646427248544239
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2250219414931136667, guid: 35b4b2d5c671d48b6944e8c24f5b7b72, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250219414931136667, guid: 35b4b2d5c671d48b6944e8c24f5b7b72, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250219414931136667, guid: 35b4b2d5c671d48b6944e8c24f5b7b72, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250219414931136667, guid: 35b4b2d5c671d48b6944e8c24f5b7b72, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250219414931136667, guid: 35b4b2d5c671d48b6944e8c24f5b7b72, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250219414931136667, guid: 35b4b2d5c671d48b6944e8c24f5b7b72, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250219414931136667, guid: 35b4b2d5c671d48b6944e8c24f5b7b72, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250219414931136667, guid: 35b4b2d5c671d48b6944e8c24f5b7b72, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250219414931136667, guid: 35b4b2d5c671d48b6944e8c24f5b7b72, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250219414931136667, guid: 35b4b2d5c671d48b6944e8c24f5b7b72, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907004956158106678, guid: 35b4b2d5c671d48b6944e8c24f5b7b72, type: 3}
+      propertyPath: m_Name
+      value: Dune
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 35b4b2d5c671d48b6944e8c24f5b7b72, type: 3}
 --- !u!1001 &5091044477620497657
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1518,3 +1576,4 @@ SceneRoots:
   - {fileID: 7339535114428999499}
   - {fileID: 8995379052520480937}
   - {fileID: 6844566407769731476}
+  - {fileID: 2943646427248544239}
