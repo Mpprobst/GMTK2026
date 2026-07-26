@@ -15,7 +15,7 @@ public class Tile : MonoBehaviour
 
     [Range(0,1)] public float itemChance = 0.5f;
     [SerializeField] private PickupData[] items;
-
+    [SerializeField] private Transform itemSpawnLoc;
 
     public void Initialize(float spawnScale)
     {
@@ -25,10 +25,10 @@ public class Tile : MonoBehaviour
             int rand = Random.Range(0, sum);
             for (int i = 0; i < items.Length; i++)
             {
-                if (items[i].rarity < rand)
+                if (items[i].rarity >= rand)
                 {
                     // spawn
-                    GameObject spawned = Instantiate(items[i].prefab, transform);
+                    GameObject spawned = Instantiate(items[i].prefab, itemSpawnLoc);
                     spawned.transform.localPosition = Vector3.zero;
                     spawned.transform.localScale = new Vector3(1 / transform.localScale.x, 1/transform.localScale.y, 1/transform.localScale.z);
                     break;

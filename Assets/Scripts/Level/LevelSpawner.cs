@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class LevelSpawner : MonoBehaviour
@@ -8,26 +9,40 @@ public class LevelSpawner : MonoBehaviour
     [SerializeField] protected GameObject[] tilePrefabs;
     [SerializeField] private int rows, cols;
     [Range(0, 1)] [SerializeField] private float tilePct = 0.1f;
-    [Range(0, 1)] [SerializeField] private float itemPct = 0.1f;
+    [Range(0, 2)] [SerializeField] private float itemPct = 0.1f;
     [SerializeField] private float tileSize = 1;
     [SerializeField] private Transform tileContainer;
 
     [Header("WFC")]
     [SerializeField] protected TileData[] tileData;
     private List<TILE_TYPE>[,] grid;
+    private bool[,] visited;
+    Dictionary<TILE_TYPE, TileData> tileDataDict = new Dictionary<TILE_TYPE, TileData>();
+
 
     private List<GameObject> tiles = new List<GameObject>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        tileDataDict.Clear();
+        foreach (var t in tileData)
+        {
+            if (tileDataDict.ContainsKey(t.tileType))
+            {
+                Debug.LogWarning("duplicate tile data defined");
+                continue;
+            }
+            tileDataDict.Add(t.tileType, t);
+        }
+
+        SpawnLevel();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && Debug.isDebugBuild)
             SpawnLevel();
     }
 
@@ -40,17 +55,6 @@ public class LevelSpawner : MonoBehaviour
 
         Vector3 corner = tileContainer.transform.position + new Vector3(-(rows-0.5f) / 2f * tileSize, 0, -(cols-0.5f) / 2f * tileSize);
         WaveFunctionCollapse();
-
-        Dictionary<TILE_TYPE, TileData> tileDataDict = new Dictionary<TILE_TYPE, TileData>();
-        foreach (var t in tileData)
-        {
-            if (tileDataDict.ContainsKey(t.tileType))
-            {
-                Debug.LogWarning("duplicate tile data defined");
-                continue;
-            }
-            tileDataDict.Add(t.tileType, t);
-        }
 
         int cellct = rows * cols;
         for (int i = 0; i < rows; i++)
@@ -73,28 +77,23 @@ public class LevelSpawner : MonoBehaviour
                 spawnedTile.GetComponent<Tile>().Initialize(itemPct);
             }
         }
+
+        // TODO: spawn wall tiles around the outside
+        // TODO: spawn an oasis
     }
 
     public void WaveFunctionCollapse()
     {
         // construct a grid of TILE_TYPE and collapse them one at a time using rules
         // use a lookup to the scriptable object to get the constraints when needed
-        Dictionary<TILE_TYPE, TileData> tileDataDict = new Dictionary<TILE_TYPE, TileData>();
-        foreach (var t in tileData)
-        {
-            if (tileDataDict.ContainsKey(t.tileType))
-            {
-                Debug.LogWarning("duplicate tile data defined");
-                continue;
-            }
-            tileDataDict.Add(t.tileType, t);
-        }
-
         grid = new List<TILE_TYPE>[rows,cols];
-        bool[,] visited = new bool[rows,cols];
-        int x = Random.Range(0, rows);
-        int y = Random.Range(0, cols);
+        visited = new bool[rows,cols];
+        
+        int x = Random.Range(rows/2, rows);
+        int y = Random.Range(rows/2, cols);
         int gridSize = rows * cols;
+        // force first tile to be the oasis
+        Collapse(x, y, TILE_TYPE.OASIS);
 
         // do this while all tiles have not been explored
         for (int i = 0; i < gridSize; i++)
@@ -138,62 +137,58 @@ public class LevelSpawner : MonoBehaviour
                 y = Random.Range(0, cols);
             }
 
-            if (grid[x, y] == null)
-                grid[x, y] = tileDataDict.Keys.ToList();
-
-            // when picking a tile, leave only one tile option left so we know what to spawn
-            //Debug.Log($"{grid.GetLength(0)}x{grid.GetLength(1)}  {x},{y} = {grid[x,y].Count}");
-            TILE_TYPE randTile = TILE_TYPE.FLAT;
-            if (grid[x,y].Count > 0)
-                randTile = grid[x, y][Random.Range(0, grid[x, y].Count)];
-            if (grid[x, y].Contains(TILE_TYPE.FLAT) && Random.Range(0f, 1f) > tilePct)
-                randTile = TILE_TYPE.FLAT;
-
-            grid[x, y].Clear();
-            grid[x, y].Add(randTile);
-            visited[x,y] = true;
-
-            // get all adjacent tiles and apply the constraints
-            TileData.TileConstraint[] constraints = tileDataDict[randTile].constraints;
-            foreach (var dir in TileData.DirectionVectors)
-            {
-                var constraint = constraints[(int)dir.Key];
-
-                int adj_x = x + dir.Value.x;
-                int adj_y = y + dir.Value.y;
-                if (adj_x >= 0 && adj_x < rows && adj_y >= 0 && adj_y < cols)
-                {
-                    // apply constraint
-                    if (grid[adj_x, adj_y] == null)
-                    {
-                        grid[adj_x, adj_y] = constraint.allowedTypes.ToList();
-                    }
-                    else if (!visited[adj_x, adj_y]) // if we have 1 item we have selected our tile
-                    {
-                        // logical AND this list with the constraint
-                        for (int t = grid[adj_x, adj_y].Count - 1; t >= 0; t--)
-                        {
-                            if (!constraint.allowedTypes.Contains(grid[adj_x, adj_y][t]) && grid[adj_x, adj_y][t] != TILE_TYPE.FLAT)
-                                grid[adj_x, adj_y].RemoveAt(t);
-                        }
-                    }
-
-                }
-            }
+            Collapse(x, y);
+            
         }
         
-
-        // pick a random index. collapse it
-        // each tile will have constraints on what kind of tile it can be
-        // each starts out with no constraints, meaning it could be any tile that's defined in our dictionary
-        // when it is collapsed, neighboring tiles gain a list of constraints of tiles it can be
-        // if it already has constraints, then we must AND the tile constraints together
-
-        // then we pick the next tile with the most constraints (smallest list) and pick a tile from that list at random
-        // we go until each cell has a tile
-    
-        // a cell will contain null if not initialized.
-        // when collapsed, turn its cell into an array len 1
     }
 
+    private void Collapse(int x, int y, TILE_TYPE forceType=(TILE_TYPE)(-1))
+    {
+        if (grid[x, y] == null)
+            grid[x, y] = tileDataDict.Keys.ToList();
+
+        // when picking a tile, leave only one tile option left so we know what to spawn
+        //Debug.Log($"{grid.GetLength(0)}x{grid.GetLength(1)}  {x},{y} = {grid[x,y].Count}");
+        TILE_TYPE randTile = TILE_TYPE.FLAT;
+        if (grid[x, y].Count > 0)
+            randTile = grid[x, y][Random.Range(0, grid[x, y].Count)];
+        if (grid[x, y].Contains(TILE_TYPE.FLAT) && Random.Range(0f, 1f) > tilePct)
+            randTile = TILE_TYPE.FLAT;
+
+        if (forceType >= 0)
+            randTile = forceType;
+
+        grid[x, y].Clear();
+        grid[x, y].Add(randTile);
+        visited[x, y] = true;
+
+        // get all adjacent tiles and apply the constraints
+        TileData.TileConstraint[] constraints = tileDataDict[randTile].constraints;
+        foreach (var dir in TileData.DirectionVectors)
+        {
+            var constraint = constraints[(int)dir.Key];
+
+            int adj_x = x + dir.Value.x;
+            int adj_y = y + dir.Value.y;
+            if (adj_x >= 0 && adj_x < rows && adj_y >= 0 && adj_y < cols)
+            {
+                // apply constraint
+                if (grid[adj_x, adj_y] == null)
+                {
+                    grid[adj_x, adj_y] = constraint.allowedTypes.ToList();
+                }
+                else if (!visited[adj_x, adj_y]) // if we have 1 item we have selected our tile
+                {
+                    // logical AND this list with the constraint
+                    for (int t = grid[adj_x, adj_y].Count - 1; t >= 0; t--)
+                    {
+                        if (!constraint.allowedTypes.Contains(grid[adj_x, adj_y][t]) && grid[adj_x, adj_y][t] != TILE_TYPE.FLAT)
+                            grid[adj_x, adj_y].RemoveAt(t);
+                    }
+                }
+
+            }
+        }
+    }
 }
