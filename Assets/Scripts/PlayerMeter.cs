@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class PlayerMeter : MonoBehaviour
 {
     private float maxHealth = 100;
-    private float currentHealth;
+    // private float currentHealth;
     private float previewHealth;
     private bool isPaused = true;
     private Slider meterSlider;
@@ -20,7 +20,7 @@ public class PlayerMeter : MonoBehaviour
     {
         meterSlider = GetComponent<Slider>();
         previewHealth = maxHealth;
-        meterSlider.value = currentHealth;
+        // meterSlider.value = currentHealth;
     }
 
     public void PauseMeter()
@@ -40,7 +40,10 @@ public class PlayerMeter : MonoBehaviour
         {
             adjustedHealth = maxHealth;
         }
-        meterSlider.DOValue(adjustedHealth, 1f).SetEase(Ease.InOutBack);
+        meterSlider.DOValue(adjustedHealth, 1f).SetEase(Ease.InOutBack).OnComplete(() =>
+        {
+            previewHealth = adjustedHealth;
+        });
     }
 
     // Update is called once per frame
